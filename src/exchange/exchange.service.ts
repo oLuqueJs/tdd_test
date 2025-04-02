@@ -12,8 +12,13 @@ export class ExchangeService {
     if (!from || !to || !amount)  {
       throw new BadRequestException(); 
     }
-    const currencyFrom = this.currenciesService.getCurrency('USD');
-    const currencyFrom2 = this.currenciesService.getCurrency('BRL');
+    
+    try {
+      const currencyFrom = await this.currenciesService.getCurrency('USD');
+      const currencyFrom2 = await this.currenciesService.getCurrency('BRL');
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
 
